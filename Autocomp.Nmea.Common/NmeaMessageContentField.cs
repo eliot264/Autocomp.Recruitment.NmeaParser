@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common
 {
-    internal abstract class NmeaMessageContentField<T>  where T : class
+    internal abstract class NmeaMessageContentField<T>
     {
-        public T Value { get; set; }
+        public abstract T Value { get; set; }
         protected NmeaMessageContentField() { }
         public abstract NmeaMessageContentField<T> Parse(string s);
         public abstract override string ToString();

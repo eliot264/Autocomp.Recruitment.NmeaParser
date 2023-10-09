@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    internal class Latitude : NmeaMessageContentField
+    internal class Latitude : NmeaMessageContentField<double>
     {
-        public double Value { get; set; }
-        public override NmeaMessageContentField Parse(string s)
+        public override double Value { get; set; }
+
+        public override NmeaMessageContentField<double> Parse(string s)
         {
             try
             {
+                NmeaMessageContentField<double> nmeaMessage = new Latitude();
                 Value = double.Parse(s);
             }
             catch (Exception e)
