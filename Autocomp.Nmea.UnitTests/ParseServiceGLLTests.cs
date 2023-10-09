@@ -23,14 +23,29 @@ namespace Autocomp.Nmea.UnitTests
 
             GLL result = (GLL)parseService.Parse(message);
 
+            AreDataEquals(result, 3953.88008971, Directions.North, 10506.75318910, Directions.West, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38.00 }, DataStatus.A, Indicator.D);
+        }
 
-            Assert.AreEqual(result.Latitude.Value, 3953.88008971);
-            Assert.AreEqual(result.LatitudeDirection.Value, Directions.North);
-            Assert.AreEqual(result.Longitude.Value, 10506.75318910);
-            Assert.AreEqual(result.LongitudeDirection.Value, Directions.West);
-            Assert.AreEqual(result.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38.00 });
-            Assert.AreEqual(result.Status.Value, DataStatus.A);
-            Assert.AreEqual(result.ModeIndicator.Value, Indicator.D);
+        private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
+        {
+            Assert.AreEqual(result.Latitude.Value, latitude);
+            Assert.AreEqual(result.LatitudeDirection.Value, latitudeDirection);
+            Assert.AreEqual(result.Longitude.Value, longitude);
+            Assert.AreEqual(result.LongitudeDirection.Value, longitudeDirection);
+            Assert.AreEqual(result.UTCOfPosition.Value, utcOfPosition);
+            Assert.AreEqual(result.Status.Value, dataStatus);
+            Assert.AreEqual(result.ModeIndicator.Value, modeIndicator);
+        }
+
+        private void AreDataNotEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
+        {
+            Assert.AreNotEqual(result.Latitude.Value, latitude);
+            Assert.AreNotEqual(result.LatitudeDirection.Value, latitudeDirection);
+            Assert.AreNotEqual(result.Longitude.Value, longitude);
+            Assert.AreNotEqual(result.LongitudeDirection.Value, longitudeDirection);
+            Assert.AreNotEqual(result.UTCOfPosition.Value, utcOfPosition);
+            Assert.AreNotEqual(result.Status.Value, dataStatus);
+            Assert.AreNotEqual(result.ModeIndicator.Value, modeIndicator);
         }
     }
 }
