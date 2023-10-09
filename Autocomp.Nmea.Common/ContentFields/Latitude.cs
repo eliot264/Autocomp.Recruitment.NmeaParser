@@ -11,14 +11,18 @@ namespace Autocomp.Nmea.Common.ContentFields
         private double latitude;
 
         private double minValue = 0.0;
-        private double maxValue = 90.0;
+        private double maxValue = 9000.0;
 
         public override double Value
         {
             get { return latitude; }
             set
             {
-                if(value >= 0.0 && value <= 90.0)
+                if(value >= minValue && value <= maxValue)
+                {
+                    latitude = value;
+                }
+                if(value == 9100)
                 {
                     latitude = value;
                 }
@@ -46,7 +50,15 @@ namespace Autocomp.Nmea.Common.ContentFields
 
         public override string ToString()
         {
-            return Value.ToString();
+            if(Value == 9100)
+            {
+                return "Latitude not available";
+            }
+
+            int degree = (int)(Value / 100);
+            double minute = Value - degree;
+
+            return $"{degree} degrees, {minute:00.00} minutes";
         }
     }
 }
