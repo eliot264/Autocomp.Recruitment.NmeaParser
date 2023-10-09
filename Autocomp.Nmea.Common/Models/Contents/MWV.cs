@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.Contents
 {
-    internal class MWV : NmeaMessageContent
+    public class MWV : NmeaMessageContent
     {
         Angle Angle { get; set; }
         Reference Reference { get; set; }

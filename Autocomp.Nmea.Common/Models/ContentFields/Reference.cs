@@ -10,7 +10,7 @@ namespace Autocomp.Nmea.Common.ContentFields
     {
         R, T
     }
-    internal class Reference : NmeaMessageContentField<DataReference>
+    public class Reference : NmeaMessageContentField<DataReference>
     {
         public override string Name { get; }
         public override DataReference Value { get; set; }

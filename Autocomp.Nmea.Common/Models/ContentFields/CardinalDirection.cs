@@ -10,20 +10,13 @@ namespace Autocomp.Nmea.Common.ContentFields
     {
         North, South, East, West
     }
-    public enum CardinalDirectionMode
+    public class CardinalDirection : NmeaMessageContentField<Directions>
     {
-        OnlyNS, OnlyWE, All
-    }
-    internal class CardinalDirection : NmeaMessageContentField<Directions>
-    {
-        private readonly CardinalDirectionMode _mode;
-
         public override Directions Value { get; set;}
         public override string Name { get; }
 
-        public CardinalDirection(string s, CardinalDirectionMode mode) : base(s)
+        public CardinalDirection(string s) : base(s)
         {
-            _mode = mode;
             Name = "Cardinal direction";
         }
 
@@ -33,33 +26,19 @@ namespace Autocomp.Nmea.Common.ContentFields
         }
         protected override Directions Parse(string s)
         {
-            if(_mode != CardinalDirectionMode.OnlyNS)
+            switch (s)
             {
-                switch (s)
-                {
-                    case "W":
-                        return Directions.West;
-                    case "E":
-                        return Directions.East;
-                    default:
-                        break;
-                }
+                case "W":
+                    return Directions.West;
+                case "E":
+                    return Directions.East;
+                case "N":
+                    return Directions.North;
+                case "S":
+                    return Directions.South;
+                default:
+                    throw new ArgumentException($"Cannot parse {s} to on of cardinal directions.");
             }
-
-            if (_mode != CardinalDirectionMode.OnlyWE)
-            {
-                switch (s)
-                {
-                    case "N":
-                        return Directions.North;
-                    case "S":
-                        return Directions.South;
-                    default:
-                        break;
-                }
-            }
-
-            throw new ArgumentException($"Cannot parse {s} to on of cardinal directions.");
         }
     }
 }

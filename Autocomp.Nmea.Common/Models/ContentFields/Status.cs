@@ -10,7 +10,7 @@ namespace Autocomp.Nmea.Common.ContentFields
     {
         A, V
     }
-    internal class Status : NmeaMessageContentField<DataStatus>
+    public class Status : NmeaMessageContentField<DataStatus>
     {
         public override string Name { get; }
         public override DataStatus Value { get; set; }

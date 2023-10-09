@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    internal class UTCTimeOnly : NmeaMessageContentField<NmeaTimeOnly>
+    public class UTCTimeOnly : NmeaMessageContentField<NmeaTimeOnly>
     {
         public override NmeaTimeOnly Value { get; set; }
         public override string Name  { get;}
@@ -28,7 +29,7 @@ namespace Autocomp.Nmea.Common.ContentFields
             {
                 int hour = int.Parse(s.Substring(0, 2));
                 int minute = int.Parse(s.Substring(2, 2));
-                double second = double.Parse(s.Substring(4, 4));
+                double second = double.Parse(s.Substring(4, 4), CultureInfo.InvariantCulture);
 
                 return new NmeaTimeOnly()
                 {

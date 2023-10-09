@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    internal class Latitude : NmeaMessageContentField<double>
+    public class Latitude : NmeaMessageContentField<double>
     {
         private double latitude;
 
@@ -22,7 +23,7 @@ namespace Autocomp.Nmea.Common.ContentFields
                 {
                     latitude = value;
                 }
-                if(value == 9100)
+                else if(value == 9100)
                 {
                     latitude = value;
                 }
@@ -39,7 +40,7 @@ namespace Autocomp.Nmea.Common.ContentFields
         {
             try
             {
-                return double.Parse(s);
+                return Convert.ToDouble(s, CultureInfo.InvariantCulture);
             }
             catch (Exception e)
             {
@@ -56,7 +57,7 @@ namespace Autocomp.Nmea.Common.ContentFields
             }
 
             int degree = (int)(Value / 100);
-            double minute = Value - degree;
+            double minute = Value - (degree * 100);
 
             return $"{degree} degrees, {minute:00.00} minutes";
         }

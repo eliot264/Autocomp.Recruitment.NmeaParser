@@ -10,7 +10,7 @@ namespace Autocomp.Nmea.Common.ContentFields
     {
         K, M, N, S
     }
-    internal class SpeedUnit : NmeaMessageContentField<Unit>
+    public class SpeedUnit : NmeaMessageContentField<Unit>
     {
         public override string Name { get; }
         public override Unit Value { get; set; }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    internal class Longitude : NmeaMessageContentField<double>
+    public class Longitude : NmeaMessageContentField<double>
     {
         private double longitude;
 
@@ -37,7 +38,7 @@ namespace Autocomp.Nmea.Common.ContentFields
         {
             try
             {
-                return double.Parse(s);
+                return Convert.ToDouble(s, CultureInfo.InvariantCulture);
             }
             catch (Exception e)
             {
@@ -53,8 +54,8 @@ namespace Autocomp.Nmea.Common.ContentFields
                 return "Longitude not available";
             }
 
-            int degree = (int)(Value / 1000);
-            double minute = Value - degree;
+            int degree = (int)(Value / 100);
+            double minute = Value - (degree * 100);
 
             return $"{degree} degrees, {minute:00.00} minutes";
         }

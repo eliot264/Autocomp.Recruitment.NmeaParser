@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.Contents
 {
-    internal class GLL : NmeaMessageContent
+    public class GLL : NmeaMessageContent
     {
-        Latitude Latitude { get; set; }
-        CardinalDirection LatitudeDirection { get; set; }
-        Longitude Longitude { get; set; }
-        CardinalDirection LongitudeDirection { get; set; }
-        UTCTimeOnly UTCOfPosition { get; set; }
-        Status Status { get; set; }
-        ModeIndicator ModeIndicator { get; set; }
+        public Latitude Latitude { get; set; }
+        public CardinalDirection LatitudeDirection { get; set; }
+        public Longitude Longitude { get; set; }
+        public CardinalDirection LongitudeDirection { get; set; }
+        public UTCTimeOnly UTCOfPosition { get; set; }
+        public Status Status { get; set; }
+        public ModeIndicator ModeIndicator { get; set; }
 
         public GLL(string message) : base(message) { }
         public GLL(NmeaMessage message) : base(message) { }
@@ -44,9 +44,9 @@ namespace Autocomp.Nmea.Common.Contents
             try
             {
                 Latitude = new Latitude(message.Fields[0]);
-                LatitudeDirection = new CardinalDirection(message.Fields[1], CardinalDirectionMode.OnlyNS);
+                LatitudeDirection = new CardinalDirection(message.Fields[1]);
                 Longitude = new Longitude(message.Fields[2]);
-                LongitudeDirection = new CardinalDirection(message.Fields[3], CardinalDirectionMode.OnlyWE);
+                LongitudeDirection = new CardinalDirection(message.Fields[3]);
                 UTCOfPosition = new UTCTimeOnly(message.Fields[4]);
                 Status = new Status(message.Fields[5]);
                 ModeIndicator = new ModeIndicator(message.Fields[6]);

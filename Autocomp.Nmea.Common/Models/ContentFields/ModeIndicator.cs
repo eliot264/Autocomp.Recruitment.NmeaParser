@@ -10,7 +10,7 @@ namespace Autocomp.Nmea.Common.ContentFields
     {
         A, D, E, M, S, N
     }
-    internal class ModeIndicator : NmeaMessageContentField<Indicator>
+    public class ModeIndicator : NmeaMessageContentField<Indicator>
     {
         public override string Name { get; }
         public override Indicator Value { get; set; }

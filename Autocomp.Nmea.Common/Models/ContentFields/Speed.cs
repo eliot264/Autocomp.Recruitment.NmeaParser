@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    internal class Speed : NmeaMessageContentField<double>
+    public class Speed : NmeaMessageContentField<double>
     {
         private double speed;
         public override string Name { get; }
