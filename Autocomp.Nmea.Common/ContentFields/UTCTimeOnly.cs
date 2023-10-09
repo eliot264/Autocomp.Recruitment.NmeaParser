@@ -9,8 +9,8 @@ namespace Autocomp.Nmea.Common.ContentFields
     internal class UTCTimeOnly : NmeaMessageContentField<NmeaTimeOnly>
     {
         public override NmeaTimeOnly Value { get; set; }
-
-        public UTCTimeOnly(string s) : base(s) { }
+        public override string Name  { get;}
+        public UTCTimeOnly(string s) : base(s) { Name = "Time stamp UTC"; }
 
         public override string ToString()
         {

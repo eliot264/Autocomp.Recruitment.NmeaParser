@@ -8,6 +8,7 @@ namespace Autocomp.Nmea.Common
 {
     internal abstract class NmeaMessageContentField<T>
     {
+        public abstract string Name { get; }
         public abstract T Value { get; set; }
         public NmeaMessageContentField(string s)
         {

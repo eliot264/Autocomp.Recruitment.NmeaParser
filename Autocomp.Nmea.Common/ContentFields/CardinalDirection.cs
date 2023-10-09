@@ -19,10 +19,12 @@ namespace Autocomp.Nmea.Common.ContentFields
         private readonly CardinalDirectionMode _mode;
 
         public override Directions Value { get; set;}
+        public override string Name { get; }
 
         public CardinalDirection(string s, CardinalDirectionMode mode) : base(s)
         {
             _mode = mode;
+            Name = "Cardinal direction";
         }
 
         public override string ToString()

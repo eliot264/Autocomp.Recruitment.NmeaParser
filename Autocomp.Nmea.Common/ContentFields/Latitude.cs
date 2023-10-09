@@ -32,8 +32,8 @@ namespace Autocomp.Nmea.Common.ContentFields
                 }
             }
         }
-
-        public Latitude(string s) : base(s) { }
+        public override string Name { get; }
+        public Latitude(string s) : base(s) { Name = "Latitude"; }
 
         protected override double Parse(string s)
         {

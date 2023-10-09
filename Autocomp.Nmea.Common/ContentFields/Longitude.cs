@@ -31,7 +31,8 @@ namespace Autocomp.Nmea.Common.ContentFields
                 }
             }
         }
-        public Longitude(string s) : base(s) { }
+        public override string Name { get; }
+        public Longitude(string s) : base(s) { Name = "Longitude"; }
         protected override double Parse(string s)
         {
             try
