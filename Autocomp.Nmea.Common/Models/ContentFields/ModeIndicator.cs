@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    enum Indicator
+    public enum Indicator
     {
         A, D, E, M, S, N
     }

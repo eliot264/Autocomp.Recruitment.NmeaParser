@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    enum DataStatus
+    public enum DataStatus
     {
         A, V
     }

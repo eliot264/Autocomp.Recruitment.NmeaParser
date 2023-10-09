@@ -77,5 +77,32 @@ namespace Autocomp.Nmea.Common
                     return $"{hour:00}:{minute:00}:{second:00.00}";
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            NmeaTimeOnly timeOnly = obj as NmeaTimeOnly;
+
+            if(timeOnly == null)
+            {
+                return false;
+            }
+
+            if(Hour != timeOnly.Hour)
+            {
+                return false;
+            }
+
+            if(Minute != timeOnly.Minute)
+            {
+                return false;
+            }
+
+            if(Second != timeOnly.Second)
+            {
+                return false;
+            }
+
+            return true
+        }
     }
 }

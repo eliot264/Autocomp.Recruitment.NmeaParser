@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    enum Unit
+    public enum Unit
     {
         K, M, N, S
     }
