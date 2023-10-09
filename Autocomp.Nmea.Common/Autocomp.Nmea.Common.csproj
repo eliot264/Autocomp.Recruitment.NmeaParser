@@ -42,10 +42,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NmeaCrcCalculator.cs" />
-    <Compile Include="NmeaFormat.cs" />
-    <Compile Include="NmeaMessage.cs" />
+    <Compile Include="Models\ContentFields\Angle.cs" />
+    <Compile Include="Models\ContentFields\CardinalDirection.cs" />
+    <Compile Include="Models\ContentFields\Latitude.cs" />
+    <Compile Include="Models\ContentFields\Longitude.cs" />
+    <Compile Include="Models\ContentFields\ModeIndicator.cs" />
+    <Compile Include="Models\ContentFields\Reference.cs" />
+    <Compile Include="Models\ContentFields\Speed.cs" />
+    <Compile Include="Models\ContentFields\SpeedUnit.cs" />
+    <Compile Include="Models\ContentFields\Status.cs" />
+    <Compile Include="Models\ContentFields\UTCTimeOnly.cs" />
+    <Compile Include="Models\Contents\GLL.cs" />
+    <Compile Include="Models\Contents\MWV.cs" />
+    <Compile Include="Services\INmeaMessageParseService.cs" />
+    <Compile Include="Models\NmeaCrcCalculator.cs" />
+    <Compile Include="Models\NmeaFormat.cs" />
+    <Compile Include="Models\NmeaMessage.cs" />
+    <Compile Include="Models\NmeaMessageContent.cs" />
+    <Compile Include="Models\NmeaMessageContentField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\NmeaTimeOnly.cs" />
+    <Compile Include="Services\NmeaMessageParseService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

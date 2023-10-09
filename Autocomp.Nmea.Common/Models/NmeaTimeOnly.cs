@@ -33,7 +33,7 @@ namespace Autocomp.Nmea.Common
             {
                 if (value >= 0 || value < 60)
                 {
-                    hour = value;
+                    minute = value;
                 }
                 else
                 {

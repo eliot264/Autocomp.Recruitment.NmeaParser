@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common
 {
-    internal abstract class NmeaMessageContent
+    public abstract class NmeaMessageContent
     {
         public NmeaMessageContent(string message) : this(NmeaMessage.FromString(message)) { }
         public NmeaMessageContent(NmeaMessage message)

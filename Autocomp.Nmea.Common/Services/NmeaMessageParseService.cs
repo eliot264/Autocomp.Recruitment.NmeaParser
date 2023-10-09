@@ -20,11 +20,11 @@ namespace Autocomp.Nmea.Common.Services
             };
         }
 
-        NmeaMessageContent INmeaMessageParseService.Parse(string message)
+        public NmeaMessageContent Parse(string message)
         {
-            throw new NotImplementedException();
+            return Parse(NmeaMessage.FromString(message));
         }
-        NmeaMessageContent INmeaMessageParseService.Parse(NmeaMessage message)
+        public NmeaMessageContent Parse(NmeaMessage message)
         {
             try
             {
