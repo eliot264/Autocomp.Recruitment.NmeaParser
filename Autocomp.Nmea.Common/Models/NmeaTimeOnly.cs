@@ -102,7 +102,7 @@ namespace Autocomp.Nmea.Common
                 return false;
             }
 
-            return true
+            return true;
         }
     }
 }
