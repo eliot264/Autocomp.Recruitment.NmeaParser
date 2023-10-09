@@ -15,18 +15,21 @@ namespace Autocomp.Nmea.Common.Contents
         CardinalDirection LongitudeDirection { get; set; }
         UTCTimeOnly UTCOfPosition { get; set; }
         Status Status { get; set; }
+        ModeIndicator ModeIndicator { get; set; }
 
         public GLL(string message) : base(message) { }
         public GLL(NmeaMessage message) : base(message) { }
 
         public override Dictionary<string, string> ToDictionary()
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-
-            result.Add(Latitude.Name, $"{Latitude.ToString()} {LatitudeDirection.ToString()}");
-            result.Add(Longitude.Name, $"{Longitude.ToString()} {LongitudeDirection.ToString()}");
-            result.Add(UTCOfPosition.Name, UTCOfPosition.ToString());
-            result.Add(Status.Name, Status.ToString());
+            Dictionary<string, string> result = new Dictionary<string, string>
+            {
+                { Latitude.Name, $"{Latitude} {LatitudeDirection}" },
+                { Longitude.Name, $"{Longitude} {LongitudeDirection}" },
+                { UTCOfPosition.Name, UTCOfPosition.ToString() },
+                { Status.Name, Status.ToString() },
+                { ModeIndicator.Name, ModeIndicator.ToString() }
+            };
 
             return result;
         }
@@ -35,7 +38,7 @@ namespace Autocomp.Nmea.Common.Contents
         {
             if(message.Fields.Length != 7)
             {
-                throw new ArgumentException($"GLL Message should have 7 fields instead of {message.Fields.Length}");
+                throw new ArgumentException($"GLL message should have 7 fields instead of {message.Fields.Length}");
             }
 
             try
@@ -46,10 +49,10 @@ namespace Autocomp.Nmea.Common.Contents
                 LongitudeDirection = new CardinalDirection(message.Fields[3], CardinalDirectionMode.OnlyWE);
                 UTCOfPosition = new UTCTimeOnly(message.Fields[4]);
                 Status = new Status(message.Fields[5]);
+                ModeIndicator = new ModeIndicator(message.Fields[6]);
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
