@@ -38,6 +38,25 @@ namespace Autocomp.Nmea.UnitTests
             Assert.ThrowsException<ArgumentException>(moreFieldsParse);
             Assert.ThrowsException<ArgumentException>(lessFieldsParse);
         }
+        [TestMethod]
+        public void InvalidLatitude()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string twoDotsMessage = "$GLL,3953.8800.8971,N,10506.75318910,W,034138.00,A,D*7A";
+            string someLettersMessage = "$GLL,3953.88ABC8971,N,10506.75318910,W,034138.00,A,D*7A";
+            string lessThanRangeMessage = "$GLL,-3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string moreThanRangeMessage = "$GLL,399953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+
+            Action twoDotsParse = () => { parseService.Parse(twoDotsMessage); };
+            Action someLettersParse = () => { parseService.Parse(someLettersMessage); };
+            Action lessThanRangeParse = () => { parseService.Parse(lessThanRangeMessage); };
+            Action moreThanRangeParse = () => { parseService.Parse(moreThanRangeMessage); };
+
+            Assert.ThrowsException<ArgumentException>(twoDotsParse);
+            Assert.ThrowsException<ArgumentException>(someLettersParse);
+            Assert.ThrowsException<ArgumentException>(lessThanRangeParse);
+            Assert.ThrowsException<ArgumentException>(moreThanRangeParse);
+        }
 
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
