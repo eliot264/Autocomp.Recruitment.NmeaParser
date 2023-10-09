@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,9 +33,9 @@ namespace Autocomp.Nmea.Common.Services
 
                 return (NmeaMessageContent)Activator.CreateInstance(contentType, new object[] { message });
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                throw e;
+                throw new ArgumentException("Cannot parse message", e);
             }
         }
     }
