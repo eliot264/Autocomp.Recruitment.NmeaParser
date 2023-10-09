@@ -8,6 +8,7 @@ namespace Autocomp.Nmea.Common
 {
     internal abstract class NmeaMessageContentField
     {
+        protected NmeaMessageContentField() { }
         public abstract NmeaMessageContentField Parse(string s);
         public abstract override string ToString();
     }
