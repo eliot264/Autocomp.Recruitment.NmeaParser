@@ -9,6 +9,10 @@ namespace Autocomp.Nmea.Common.ContentFields
     internal class Latitude : NmeaMessageContentField<double>
     {
         private double latitude;
+
+        private double minValue = 0.0;
+        private double maxValue = 90.0;
+
         public override double Value
         {
             get { return latitude; }
@@ -20,23 +24,24 @@ namespace Autocomp.Nmea.Common.ContentFields
                 }
                 else
                 {
-                    throw new ArgumentException($"Tried to add {value}. Latitude takes values from 0 to 90 degree.");
+                    throw new ArgumentException($"Tried to add {value}. Latitude takes values from {minValue} to {maxValue} degree.");
                 }
             }
         }
 
-        public override NmeaMessageContentField<double> Parse(string s)
+        public Latitude(string s) : base(s) { }
+
+        protected override double Parse(string s)
         {
             try
             {
-                NmeaMessageContentField<double> nmeaMessage = new Latitude();
-                Value = double.Parse(s);
-                return nmeaMessage;
+                return double.Parse(s);
             }
             catch (Exception e)
             {
                 throw e;
-            }         
+            }
+              
         }
 
         public override string ToString()

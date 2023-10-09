@@ -27,23 +27,23 @@ namespace Autocomp.Nmea.Common.ContentFields
                 }
             }
         }
-        public override NmeaMessageContentField<double> Parse(string s)
+        public Longitude(string s) : base(s) { }
+        protected override double Parse(string s)
         {
             try
             {
-                NmeaMessageContentField<double> nmeaMessage = new Longitude();
-                Value = double.Parse(s);
-                return nmeaMessage;
+                return double.Parse(s);
             }
             catch (Exception e)
             {
                 throw e;
             }
+
         }
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return Value.ToString();
         }
     }
 }

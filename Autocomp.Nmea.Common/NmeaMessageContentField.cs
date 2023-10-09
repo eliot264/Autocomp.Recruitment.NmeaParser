@@ -9,8 +9,11 @@ namespace Autocomp.Nmea.Common
     internal abstract class NmeaMessageContentField<T>
     {
         public abstract T Value { get; set; }
-        protected NmeaMessageContentField() { }
-        public abstract NmeaMessageContentField<T> Parse(string s);
+        public NmeaMessageContentField(string s)
+        {
+            Value = Parse(s);
+        }
+        protected abstract T Parse(string s);
         public abstract override string ToString();
     }
 }
