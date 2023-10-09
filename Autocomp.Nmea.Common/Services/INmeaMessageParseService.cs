@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common
 {
-    internal interface INmeaMessageParseService
+    public interface INmeaMessageParseService
     {
         NmeaMessageContent Parse(string message);
         NmeaMessageContent Parse(NmeaMessage message);
