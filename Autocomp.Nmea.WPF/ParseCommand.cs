@@ -26,7 +26,7 @@ namespace Autocomp.Nmea.WPF
 
         private void OnParseViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            CanExecuteChanged?.Invoke(this, e);
+            CanExecuteChanged?.Invoke(this, new EventArgs());
         }
 
         public bool CanExecute(object? parameter)

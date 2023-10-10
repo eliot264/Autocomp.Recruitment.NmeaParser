@@ -28,7 +28,7 @@
 
         <Grid Grid.Row="0" Grid.Column="0">
             <Border>
-                <TextBox Width="500" Text="{Binding Message, Mode=TwoWay}" />
+                <TextBox Width="500" Text="{Binding Message, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             </Border>
         </Grid>
 
