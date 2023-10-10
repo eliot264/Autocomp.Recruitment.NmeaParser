@@ -9,11 +9,11 @@ namespace Autocomp.Nmea.Common.Contents
 {
     public class MWV : NmeaMessageContent
     {
-        Angle Angle { get; set; }
-        Reference Reference { get; set; }
-        Speed Speed { get; set; }
-        SpeedUnit SpeedUnit { get; set; }
-        Status Status { get; set; }
+        public Angle Angle { get; set; }
+        public Reference Reference { get; set; }
+        public Speed Speed { get; set; }
+        public SpeedUnit SpeedUnit { get; set; }
+        public Status Status { get; set; }
 
         public MWV(string message) : base(message) { }
         public MWV(NmeaMessage message) : base(message) { }

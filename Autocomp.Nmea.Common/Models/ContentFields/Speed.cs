@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Autocomp.Nmea.Common.ContentFields
         {
             try
             {
-                return double.Parse(s);
+                return Convert.ToDouble(s, CultureInfo.InvariantCulture);
             }
             catch (Exception e)
             {

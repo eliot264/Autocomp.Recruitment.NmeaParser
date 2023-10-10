@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Autocomp.Nmea.Common.ContentFields
 {
-    internal class Angle : NmeaMessageContentField<double>
+    public class Angle : NmeaMessageContentField<double>
     {
         private double angle;
 
@@ -41,7 +42,7 @@ namespace Autocomp.Nmea.Common.ContentFields
         {
             try
             {
-                return Convert.ToDouble(s);
+                return Convert.ToDouble(s, CultureInfo.InvariantCulture);
             }
             catch (Exception e)
             {
