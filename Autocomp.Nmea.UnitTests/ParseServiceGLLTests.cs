@@ -231,6 +231,32 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(specialMessage63secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 63 });
             Assert.AreEqual(specialMessage63secondResult.UTCOfPosition.ToString(), "Positioning system is inoperative");
         }
+        [TestMethod]
+        public void InvalidStatus()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string invalidStatusMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,G,D*7A";
+
+            Action invalidStatusAction = () => { parseService.Parse(invalidStatusMessage); };
+
+            Assert.ThrowsException<ArgumentException>(invalidStatusAction);
+        }
+        [TestMethod]
+        public void ValidStatus()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string statusAMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string statusVMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,V,D*7A";
+
+            GLL statusAResult = (GLL)parseService.Parse(statusAMessage);
+            GLL statusVResult = (GLL)parseService.Parse(statusVMessage);
+
+            Assert.AreEqual(statusAResult.Status.Value, DataStatus.A);
+            Assert.AreEqual(statusAResult.Status.ToString(), "Data valid");
+
+            Assert.AreEqual(statusVResult.Status.Value, DataStatus.V);
+            Assert.AreEqual(statusVResult.Status.ToString(), "Data not valid");
+        }
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
             Assert.AreEqual(result.Latitude.Value, latitude);
