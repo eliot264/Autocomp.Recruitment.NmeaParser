@@ -28,24 +28,27 @@
 
         <Grid Grid.Row="0" Grid.Column="0">
             <Border>
-                <TextBox Width="500" />
+                <TextBox Width="500" Text="{Binding Message, Mode=TwoWay}" />
             </Border>
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1">
             <Border>
-                <Button Padding="20,0" Content="Parse" />
+                <Button
+                    Padding="20,0"
+                    Command="{Binding ParseCommand}"
+                    Content="Parse" />
             </Border>
         </Grid>
 
         <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Border HorizontalAlignment="Left">
-                <Label d:Content="Content name" />
+                <Label d:Content="Content name" Content="{Binding MessageName}" />
             </Border>
         </Grid>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
-            <ItemsControl>
+            <ItemsControl ItemsSource="{Binding MessageDictionary}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -56,13 +59,13 @@
 
                             <Grid Grid.Column="0">
                                 <Border>
-                                    <Label d:Content="Property name" />
+                                    <Label d:Content="Property name" Content="{Binding Path=Key}" />
                                 </Border>
                             </Grid>
 
                             <Grid Grid.Column="0">
                                 <Border>
-                                    <Label d:Content="Property value" />
+                                    <Label d:Content="Property value" Content="{Binding Path=Value}" />
                                 </Border>
                             </Grid>
                         </Grid>

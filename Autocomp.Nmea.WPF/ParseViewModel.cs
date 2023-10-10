@@ -36,6 +36,7 @@ namespace Autocomp.Nmea.WPF
                 MessageDictionary = messageContent?.ToDictionary();
             }
         }
+        public string MessageName => messageContent?.Name ?? string.Empty;
         public Dictionary<string, string>? MessageDictionary
         {
             get { return messageDictionary; }
