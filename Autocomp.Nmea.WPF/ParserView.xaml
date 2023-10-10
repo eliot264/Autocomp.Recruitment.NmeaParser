@@ -43,35 +43,43 @@
 
         <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Border HorizontalAlignment="Left">
-                <Label d:Content="Content name" Content="{Binding MessageName}" />
+                <Label
+                    d:Content="Content name"
+                    Content="{Binding MessageName}"
+                    FontWeight="Bold" />
             </Border>
         </Grid>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
-            <ItemsControl ItemsSource="{Binding MessageDictionary}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+            <Border>
+                <ItemsControl ItemsSource="{Binding MessageDictionary}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Column="0">
-                                <Border>
-                                    <Label d:Content="Property name" Content="{Binding Path=Key}" />
-                                </Border>
-                            </Grid>
+                                <Grid Grid.Column="0">
+                                    <Border>
+                                        <Label
+                                            d:Content="Property name"
+                                            Content="{Binding Path=Key}"
+                                            FontWeight="Bold" />
+                                    </Border>
+                                </Grid>
 
-                            <Grid Grid.Column="0">
-                                <Border>
-                                    <Label d:Content="Property value" Content="{Binding Path=Value}" />
-                                </Border>
+                                <Grid Grid.Column="1">
+                                    <Border>
+                                        <Label d:Content="Property value" Content="{Binding Path=Value}" />
+                                    </Border>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

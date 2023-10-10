@@ -33,6 +33,7 @@ namespace Autocomp.Nmea.WPF
             set
             {
                 messageContent = value;
+                OnPropertyChanged(nameof(MessageName));
                 MessageDictionary = messageContent?.ToDictionary();
             }
         }
