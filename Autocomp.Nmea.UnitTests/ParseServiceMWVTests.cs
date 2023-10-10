@@ -112,5 +112,32 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(DataReference.T, referenceTResult.Reference.Value);
             Assert.AreEqual("Theoretical", referenceTResult.Reference.ToString());
         }
+        [TestMethod]
+        public void InvalidSpeed()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string twoDotsMessage = "$MWV,320,R,15.1.0,M,A*0B";
+            string someLettersMessage = "$MWV,320,R,1ABC5.0,M,A*0B";
+            string lessThanRangeMessage = "$MWV,320,R,-15.0,M,A*0B";
+
+            Action twoDotsParse = () => { parseService.Parse(twoDotsMessage); };
+            Action someLettersParse = () => { parseService.Parse(someLettersMessage); };
+            Action lessThanRangeParse = () => { parseService.Parse(lessThanRangeMessage); };
+
+            Assert.ThrowsException<ArgumentException>(twoDotsParse);
+            Assert.ThrowsException<ArgumentException>(someLettersParse);
+            Assert.ThrowsException<ArgumentException>(lessThanRangeParse);
+        }
+        [TestMethod]
+        public void ValidSpeed()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string correctAngleMessage = "$MWV,320,R,15.0,M,A*0B";
+
+            MWV correctAngleResult = (MWV)parseService.Parse(correctAngleMessage);
+
+            Assert.AreEqual(15.0, correctAngleResult.Speed.Value);
+            Assert.AreEqual("15,00", correctAngleResult.Speed.ToString());
+        }
     }
 }
