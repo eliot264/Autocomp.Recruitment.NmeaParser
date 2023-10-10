@@ -86,5 +86,31 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(320.0, correctAngleResult.Angle.Value);
             Assert.AreEqual("320,00 degrees", correctAngleResult.Angle.ToString());
         }
+        [TestMethod]
+        public void InvalidReference()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string invalidReferenceMessage = "$MWV,320,Z,15.0,M,A*0B";
+
+            Action invalidReferenceAction = () => { parseService.Parse(invalidReferenceMessage); };
+
+            Assert.ThrowsException<ArgumentException>(invalidReferenceAction);
+        }
+        [TestMethod]
+        public void ValidReference()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string referenceRMessage = "$MWV,320,R,15.0,M,A*0B";
+            string referenceTMessage = "$MWV,320,T,15.0,M,A*0B";
+
+            MWV referenceRResult = (MWV)parseService.Parse(referenceRMessage);
+            MWV referenceTResult = (MWV)parseService.Parse(referenceTMessage);
+
+            Assert.AreEqual(DataReference.R, referenceRResult.Reference.Value);
+            Assert.AreEqual("Relative", referenceRResult.Reference.ToString());
+
+            Assert.AreEqual(DataReference.T, referenceTResult.Reference.Value);
+            Assert.AreEqual("Theoretical", referenceTResult.Reference.ToString());
+        }
     }
 }
