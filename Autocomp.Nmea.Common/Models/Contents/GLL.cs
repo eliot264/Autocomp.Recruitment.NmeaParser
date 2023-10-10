@@ -1,4 +1,5 @@
 ﻿using Autocomp.Nmea.Common.ContentFields;
+using Autocomp.Nmea.Common.Models.ContentFields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Autocomp.Nmea.Common.Contents
     public class GLL : NmeaMessageContent
     {
         public Latitude Latitude { get; set; }
-        public CardinalDirection LatitudeDirection { get; set; }
+        public NSOnlyCardinalDirection LatitudeDirection { get; set; }
         public Longitude Longitude { get; set; }
-        public CardinalDirection LongitudeDirection { get; set; }
+        public WEOnlyCardinalDirection LongitudeDirection { get; set; }
         public UTCTimeOnly UTCOfPosition { get; set; }
         public Status Status { get; set; }
         public ModeIndicator ModeIndicator { get; set; }
@@ -44,9 +45,9 @@ namespace Autocomp.Nmea.Common.Contents
             try
             {
                 Latitude = new Latitude(message.Fields[0]);
-                LatitudeDirection = new CardinalDirection(message.Fields[1]);
+                LatitudeDirection = new NSOnlyCardinalDirection(message.Fields[1]);
                 Longitude = new Longitude(message.Fields[2]);
-                LongitudeDirection = new CardinalDirection(message.Fields[3]);
+                LongitudeDirection = new WEOnlyCardinalDirection(message.Fields[3]);
                 UTCOfPosition = new UTCTimeOnly(message.Fields[4]);
                 Status = new Status(message.Fields[5]);
                 ModeIndicator = new ModeIndicator(message.Fields[6]);

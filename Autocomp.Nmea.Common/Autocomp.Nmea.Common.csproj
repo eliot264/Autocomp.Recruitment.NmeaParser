@@ -47,11 +47,13 @@
     <Compile Include="Models\ContentFields\Latitude.cs" />
     <Compile Include="Models\ContentFields\Longitude.cs" />
     <Compile Include="Models\ContentFields\ModeIndicator.cs" />
+    <Compile Include="Models\ContentFields\NSOnlyCardinalDirection.cs" />
     <Compile Include="Models\ContentFields\Reference.cs" />
     <Compile Include="Models\ContentFields\Speed.cs" />
     <Compile Include="Models\ContentFields\SpeedUnit.cs" />
     <Compile Include="Models\ContentFields\Status.cs" />
     <Compile Include="Models\ContentFields\UTCTimeOnly.cs" />
+    <Compile Include="Models\ContentFields\WEOnlyCardinalDirection.cs" />
     <Compile Include="Models\Contents\GLL.cs" />
     <Compile Include="Models\Contents\MWV.cs" />
     <Compile Include="Services\INmeaMessageParseService.cs" />
