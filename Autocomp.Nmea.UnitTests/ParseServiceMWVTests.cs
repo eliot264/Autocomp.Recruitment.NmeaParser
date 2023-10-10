@@ -139,5 +139,41 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(15.0, correctAngleResult.Speed.Value);
             Assert.AreEqual("15,00", correctAngleResult.Speed.ToString());
         }
+        [TestMethod]
+        public void InvalidSpeedUnit()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string invalidReferenceMessage = "$MWV,320,R,15.0,Z,A*0B";
+
+            Action invalidReferenceAction = () => { parseService.Parse(invalidReferenceMessage); };
+
+            Assert.ThrowsException<ArgumentException>(invalidReferenceAction);
+        }
+        [TestMethod]
+        public void ValidSpeedUnit()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string speedUnitKMessage = "$MWV,320,R,15.0,K,A*0B";
+            string speedUnitMMessage = "$MWV,320,R,15.0,M,A*0B";
+            string speedUnitNMessage = "$MWV,320,R,15.0,N,A*0B";
+            string speedUnitSMessage = "$MWV,320,R,15.0,S,A*0B";
+
+            MWV speedUnitKResult = (MWV)parseService.Parse(speedUnitKMessage);
+            MWV speedUnitMResult = (MWV)parseService.Parse(speedUnitMMessage);
+            MWV speedUnitNResult = (MWV)parseService.Parse(speedUnitNMessage);
+            MWV speedUnitSResult = (MWV)parseService.Parse(speedUnitSMessage);
+
+            Assert.AreEqual(Unit.K, speedUnitKResult.SpeedUnit.Value);
+            Assert.AreEqual("km/h", speedUnitKResult.SpeedUnit.ToString());
+
+            Assert.AreEqual(Unit.M, speedUnitMResult.SpeedUnit.Value);
+            Assert.AreEqual("m/s", speedUnitMResult.SpeedUnit.ToString());
+
+            Assert.AreEqual(Unit.N, speedUnitNResult.SpeedUnit.Value);
+            Assert.AreEqual("knots", speedUnitNResult.SpeedUnit.ToString());
+
+            Assert.AreEqual(Unit.S, speedUnitSResult.SpeedUnit.Value);
+            Assert.AreEqual("statute miles/h", speedUnitSResult.SpeedUnit.ToString());
+        }
     }
 }
