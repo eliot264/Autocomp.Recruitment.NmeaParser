@@ -56,5 +56,35 @@ namespace Autocomp.Nmea.UnitTests
             Assert.ThrowsException<ArgumentException>(moreFieldsParse);
             Assert.ThrowsException<ArgumentException>(lessFieldsParse);
         }
+        [TestMethod]
+        public void InvalidAngle()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string twoDotsMessage = "$MWV,320.0.0,R,15.0,M,A*0B";
+            string someLettersMessage = "$MWV,32ABC0,R,15.0,M,A*0B";
+            string lessThanRangeMessage = "$MWV,-320,R,15.0,M,A*0B";
+            string moreThanRangeMessage = "$MWV,520,R,15.0,M,A*0B";
+
+            Action twoDotsParse = () => { parseService.Parse(twoDotsMessage); };
+            Action someLettersParse = () => { parseService.Parse(someLettersMessage); };
+            Action lessThanRangeParse = () => { parseService.Parse(lessThanRangeMessage); };
+            Action moreThanRangeParse = () => { parseService.Parse(moreThanRangeMessage); };
+
+            Assert.ThrowsException<ArgumentException>(twoDotsParse);
+            Assert.ThrowsException<ArgumentException>(someLettersParse);
+            Assert.ThrowsException<ArgumentException>(lessThanRangeParse);
+            Assert.ThrowsException<ArgumentException>(moreThanRangeParse);
+        }
+        [TestMethod]
+        public void ValidAngle()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string correctAngleMessage = "$MWV,320,R,15.0,M,A*0B";
+
+            MWV correctAngleResult = (MWV)parseService.Parse(correctAngleMessage);
+
+            Assert.AreEqual(320.0, correctAngleResult.Angle.Value);
+            Assert.AreEqual("320,00 degrees", correctAngleResult.Angle.ToString());
+        }
     }
 }
