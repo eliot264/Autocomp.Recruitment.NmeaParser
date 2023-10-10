@@ -47,7 +47,7 @@ namespace Autocomp.Nmea.Common.Contents
             }
             catch (Exception e)
             {
-                throw e;
+                throw new ArgumentException("Cannot parse message to MWV", e);
             }
         }
     }

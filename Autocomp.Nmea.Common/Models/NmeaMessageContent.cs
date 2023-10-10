@@ -12,7 +12,14 @@ namespace Autocomp.Nmea.Common
         public NmeaMessageContent(string message) : this(NmeaMessage.FromString(message)) { }
         public NmeaMessageContent(NmeaMessage message)
         {
-            Parse(message);
+            try
+            {
+                Parse(message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Cannot parse to NmeaMessageContent", e);
+            }
         }
         protected abstract void Parse(NmeaMessage message);
         public abstract Dictionary<string, string> ToDictionary();
