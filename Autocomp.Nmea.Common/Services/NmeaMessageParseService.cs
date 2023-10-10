@@ -23,7 +23,16 @@ namespace Autocomp.Nmea.Common.Services
 
         public NmeaMessageContent Parse(string message)
         {
-            return Parse(NmeaMessage.FromString(message));
+            try
+            {
+                return Parse(NmeaMessage.FromString(message));
+            }
+            catch (Exception e)
+            {
+
+                throw new ArgumentException($"Cannot parse {message} to NmeaMessageObject", e);
+            }
+            
         }
         public NmeaMessageContent Parse(NmeaMessage message)
         {

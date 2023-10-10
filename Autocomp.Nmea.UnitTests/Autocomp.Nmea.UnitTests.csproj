@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParseServiceGeneralTests.cs" />
     <Compile Include="ParseServiceGLLTests.cs" />
     <Compile Include="ParseServiceMWVTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
