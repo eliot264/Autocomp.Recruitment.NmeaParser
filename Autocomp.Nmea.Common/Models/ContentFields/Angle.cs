@@ -35,7 +35,7 @@ namespace Autocomp.Nmea.Common.ContentFields
 
         public override string ToString()
         {
-            return $"{Value} degrees";
+            return $"{Value:.00} degrees";
         }
 
         protected override double Parse(string s)

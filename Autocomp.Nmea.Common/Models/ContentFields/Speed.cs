@@ -16,7 +16,7 @@ namespace Autocomp.Nmea.Common.ContentFields
             get { return speed; }
             set
             {
-                if (value < 0)
+                if (value > 0)
                 {
                     speed = value;
                 }

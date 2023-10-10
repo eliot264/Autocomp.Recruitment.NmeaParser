@@ -32,7 +32,7 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(4, resultDictionary.Count);
 
             Assert.AreEqual("Angle", resultDictionary.ElementAt(0).Key);
-            Assert.AreEqual("320,00", resultDictionary.ElementAt(0).Value);
+            Assert.AreEqual("320,00 degrees", resultDictionary.ElementAt(0).Value);
 
             Assert.AreEqual("Reference", resultDictionary.ElementAt(1).Key);
             Assert.AreEqual("Relative", resultDictionary.ElementAt(1).Value);
