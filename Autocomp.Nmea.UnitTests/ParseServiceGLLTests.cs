@@ -102,6 +102,41 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(latitudeDirectionSResult.LatitudeDirection.Value, Directions.South);
             Assert.AreEqual(latitudeDirectionSResult.LatitudeDirection.ToString(), "South");
         }
+        [TestMethod]
+        public void InvalidLongitude()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string twoDotsMessage = "$GLL,3953.88008971,N,10506.7531.8910,W,034138.00,A,D*7A";
+            string someLettersMessage = "$GLL,3953.888971,N,10506.753SMC18910,W,034138.00,A,D*7A";
+            string lessThanRangeMessage = "$GLL,3953.88008971,N,-10506.75318910,W,034138.00,A,D*7A";
+            string moreThanRangeMessage = "$GLL,3953.88008971,N,1099506.75318910,W,034138.00,A,D*7A";
+
+            Action twoDotsParse = () => { parseService.Parse(twoDotsMessage); };
+            Action someLettersParse = () => { parseService.Parse(someLettersMessage); };
+            Action lessThanRangeParse = () => { parseService.Parse(lessThanRangeMessage); };
+            Action moreThanRangeParse = () => { parseService.Parse(moreThanRangeMessage); };
+
+            Assert.ThrowsException<ArgumentException>(twoDotsParse);
+            Assert.ThrowsException<ArgumentException>(someLettersParse);
+            Assert.ThrowsException<ArgumentException>(lessThanRangeParse);
+            Assert.ThrowsException<ArgumentException>(moreThanRangeParse);
+        }
+        [TestMethod]
+        public void ValidLongitude()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string normalLatitudeMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string specialLatitudeMessage = "$GLL,3953.88008971,N,18100.00,W,034138.00,A,D*7A";
+
+            GLL normalLatitudeResult = (GLL)parseService.Parse(normalLatitudeMessage);
+            GLL specialLatitudeResult = (GLL)parseService.Parse(specialLatitudeMessage);
+
+            Assert.AreEqual(normalLatitudeResult.Longitude.Value, 10506.75318910);
+            Assert.AreEqual(normalLatitudeResult.Longitude.ToString(), "105 degrees, 06,75 minutes");
+
+            Assert.AreEqual(specialLatitudeResult.Longitude.Value, 18100);
+            Assert.AreEqual(specialLatitudeResult.Longitude.ToString(), "Longitude not available");
+        }
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
             Assert.AreEqual(result.Latitude.Value, latitude);
