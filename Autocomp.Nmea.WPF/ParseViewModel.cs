@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Autocomp.Nmea.WPF
 {
@@ -44,13 +45,20 @@ namespace Autocomp.Nmea.WPF
                 OnPropertyChanged(nameof(MessageDictionary));
             }
         }
-
+        public ICommand ParseCommand { get; set; }
         public ParseViewModel(INmeaMessageParseService parseService)
         {
             _parseService = parseService;
             message = string.Empty;
             messageContent = null;
             messageDictionary = null;
+
+            ParseCommand = new ParseCommand(this, _parseService);
+        }
+
+        private void ParseCommand_CanExecuteChanged(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void OnPropertyChanged(string propertyName)

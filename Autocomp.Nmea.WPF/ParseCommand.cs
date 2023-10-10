@@ -20,6 +20,13 @@ namespace Autocomp.Nmea.WPF
         {
             _parseViewModel = parseViewModel;
             _parseService = parseService;
+
+            _parseViewModel.PropertyChanged += OnParseViewModelPropertyChanged;
+        }
+
+        private void OnParseViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            CanExecuteChanged?.Invoke(this, e);
         }
 
         public bool CanExecute(object? parameter)
