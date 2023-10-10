@@ -57,6 +57,22 @@ namespace Autocomp.Nmea.UnitTests
             Assert.ThrowsException<ArgumentException>(lessThanRangeParse);
             Assert.ThrowsException<ArgumentException>(moreThanRangeParse);
         }
+        [TestMethod]
+        public void ValidLatitude()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string normalLatitudeMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string specialLatitudeMessage = "$GLL,9100,N,10506.75318910,W,034138.00,A,D*7A";
+
+            GLL normalLatitudeResult = (GLL)parseService.Parse(normalLatitudeMessage);
+            GLL specialLatitudeResult = (GLL)parseService.Parse(specialLatitudeMessage);
+
+            Assert.AreEqual(normalLatitudeResult.Latitude.Value, 3953.88008971);
+            Assert.AreEqual(normalLatitudeResult.Latitude.ToString(), "39 degrees, 53,88 minutes");
+
+            Assert.AreEqual(specialLatitudeResult.Latitude.Value, 9100);
+            Assert.AreEqual(specialLatitudeResult.Latitude.ToString(), "Latitude not available");
+        }
 
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
