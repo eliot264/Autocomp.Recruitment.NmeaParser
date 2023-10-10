@@ -175,5 +175,31 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(Unit.S, speedUnitSResult.SpeedUnit.Value);
             Assert.AreEqual("statute miles/h", speedUnitSResult.SpeedUnit.ToString());
         }
+        [TestMethod]
+        public void InvalidStatus()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string invalidStatusMessage = "$MWV,320,R,15.0,K,Z*0B";
+
+            Action invalidStatusAction = () => { parseService.Parse(invalidStatusMessage); };
+
+            Assert.ThrowsException<ArgumentException>(invalidStatusAction);
+        }
+        [TestMethod]
+        public void ValidStatus()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string statusAMessage = "$MWV,320,R,15.0,K,A*0B";
+            string statusVMessage = "$MWV,320,R,15.0,K,V*0B";
+
+            MWV statusAResult = (MWV)parseService.Parse(statusAMessage);
+            MWV statusVResult = (MWV)parseService.Parse(statusVMessage);
+
+            Assert.AreEqual(DataStatus.A, statusAResult.Status.Value);
+            Assert.AreEqual("Data valid", statusAResult.Status.ToString());
+
+            Assert.AreEqual(DataStatus.V, statusVResult.Status.Value);
+            Assert.AreEqual("Data not valid", statusVResult.Status.ToString());
+        }
     }
 }
