@@ -26,7 +26,7 @@ namespace Autocomp.Nmea.UnitTests
             AreDataEquals(result, 3953.88008971, Directions.North, 10506.75318910, Directions.West, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38.00 }, DataStatus.A, Indicator.D);
         }
         [TestMethod]
-        public void InvalidMessageFieldsTest()
+        public void InvalidMessageNumberOfFieldsTest()
         {
             INmeaMessageParseService parseService = new NmeaMessageParseService();
             string moreFieldsMessage = "$GLL,3953.88008971,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
