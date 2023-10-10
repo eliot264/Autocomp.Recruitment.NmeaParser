@@ -29,6 +29,8 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(Unit.M, result.SpeedUnit.Value);
             Assert.AreEqual(DataStatus.A, result.Status.Value);
 
+            Assert.AreEqual("Wind Speed and Angle", result.Name);
+
             Assert.AreEqual(4, resultDictionary.Count);
 
             Assert.AreEqual("Angle", resultDictionary.ElementAt(0).Key);

@@ -26,6 +26,8 @@ namespace Autocomp.Nmea.UnitTests
 
             AreDataEquals(result, 3953.88008971, Directions.North, 10506.75318910, Directions.West, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38.00 }, DataStatus.A, Indicator.D);
 
+            Assert.AreEqual("Geographic Position - Latitude/Longitude", result.Name);
+
             Assert.AreEqual(5, resultDictionary.Count);
 
             Assert.AreEqual("Latitude", resultDictionary.ElementAt(0).Key);
