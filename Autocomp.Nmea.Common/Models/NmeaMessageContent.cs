@@ -8,6 +8,7 @@ namespace Autocomp.Nmea.Common
 {
     public abstract class NmeaMessageContent
     {
+        public abstract string Name { get; }
         public NmeaMessageContent(string message) : this(NmeaMessage.FromString(message)) { }
         public NmeaMessageContent(NmeaMessage message)
         {

@@ -9,14 +9,15 @@ namespace Autocomp.Nmea.Common.Contents
 {
     public class MWV : NmeaMessageContent
     {
+        public override string Name { get; }
         public Angle Angle { get; set; }
         public Reference Reference { get; set; }
         public Speed Speed { get; set; }
         public SpeedUnit SpeedUnit { get; set; }
         public Status Status { get; set; }
 
-        public MWV(string message) : base(message) { }
-        public MWV(NmeaMessage message) : base(message) { }
+        public MWV(string message) : base(message) { Name = "Wind Speed and Angle"; }
+        public MWV(NmeaMessage message) : base(message) { Name = "Wind Speed and Angle"; }
 
         public override Dictionary<string, string> ToDictionary()
         {

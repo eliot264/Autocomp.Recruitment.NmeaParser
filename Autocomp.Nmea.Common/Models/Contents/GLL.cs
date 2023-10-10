@@ -10,6 +10,7 @@ namespace Autocomp.Nmea.Common.Contents
 {
     public class GLL : NmeaMessageContent
     {
+        public override string Name { get; }
         public Latitude Latitude { get; set; }
         public NSOnlyCardinalDirection LatitudeDirection { get; set; }
         public Longitude Longitude { get; set; }
@@ -18,8 +19,8 @@ namespace Autocomp.Nmea.Common.Contents
         public Status Status { get; set; }
         public ModeIndicator ModeIndicator { get; set; }
 
-        public GLL(string message) : base(message) { }
-        public GLL(NmeaMessage message) : base(message) { }
+        public GLL(string message) : base(message) { Name = "Geographic Position - Latitude/Longitude"; }
+        public GLL(NmeaMessage message) : base(message) { Name = "Geographic Position - Latitude/Longitude"; }
 
         public override Dictionary<string, string> ToDictionary()
         {

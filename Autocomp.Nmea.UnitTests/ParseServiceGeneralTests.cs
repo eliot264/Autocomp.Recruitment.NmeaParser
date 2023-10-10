@@ -26,10 +26,10 @@ namespace Autocomp.Nmea.UnitTests
         public void InvalidMessageFormat()
         {
             INmeaMessageParseService parseService = new NmeaMessageParseService();
-            string invalidPrefixMessage = "#HDD,3953.88008971N,10506.75318910,W,034138.00,A,D*7A";
-            string invalidSuffixMessage = "$HDD,3953.88008971N,10506.75318910,W,034138.00,A,D#7A";
-            string invalidSeparatorMessage = "$HDD'3953.88008971N'10506.75318910'W,034138.00'A'D*7A";
-            string invalidTerminatorMessage = "$HDD,3953.88008971N,10506.75318910,W,034138.00,A,D*7A\n\n\n";
+            string invalidPrefixMessage = "#GLL,3953.88008971N,10506.75318910,W,034138.00,A,D*7A";
+            string invalidSuffixMessage = "$GLL,3953.88008971N,10506.75318910,W,034138.00,A,D#7A";
+            string invalidSeparatorMessage = "$GLL'3953.88008971N'10506.75318910'W,034138.00'A'D*7A";
+            string invalidTerminatorMessage = "$GLL,3953.88008971N,10506.75318910,W,034138.00,A,D*7A\n\n\n";
 
             Action invalidPrefixAction = () => parseService.Parse(invalidPrefixMessage);
             Action invalidSuffixAction = () => parseService.Parse(invalidSuffixMessage);
