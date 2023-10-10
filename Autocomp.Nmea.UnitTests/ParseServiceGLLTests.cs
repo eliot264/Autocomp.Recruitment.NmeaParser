@@ -67,11 +67,11 @@ namespace Autocomp.Nmea.UnitTests
             GLL normalLatitudeResult = (GLL)parseService.Parse(normalLatitudeMessage);
             GLL specialLatitudeResult = (GLL)parseService.Parse(specialLatitudeMessage);
 
-            Assert.AreEqual(normalLatitudeResult.Latitude.Value, 3953.88008971);
-            Assert.AreEqual(normalLatitudeResult.Latitude.ToString(), "39 degrees, 53,88 minutes");
+            Assert.AreEqual(3953.88008971, normalLatitudeResult.Latitude.Value);
+            Assert.AreEqual("39 degrees, 53,88 minutes", normalLatitudeResult.Latitude.ToString());
 
-            Assert.AreEqual(specialLatitudeResult.Latitude.Value, 9100);
-            Assert.AreEqual(specialLatitudeResult.Latitude.ToString(), "Latitude not available");
+            Assert.AreEqual(9100, specialLatitudeResult.Latitude.Value);
+            Assert.AreEqual("Latitude not available", specialLatitudeResult.Latitude.ToString());
         }
         [TestMethod]
         public void InvalidLatitudeDirection()
@@ -96,11 +96,11 @@ namespace Autocomp.Nmea.UnitTests
             GLL latitudeDirectionNResult = (GLL)parseService.Parse(latitudeDirectionNMessage);
             GLL latitudeDirectionSResult = (GLL)parseService.Parse(latitudeDirectionSMessage);
 
-            Assert.AreEqual(latitudeDirectionNResult.LatitudeDirection.Value, Directions.North);
-            Assert.AreEqual(latitudeDirectionNResult.LatitudeDirection.ToString(), "North");
+            Assert.AreEqual(Directions.North, latitudeDirectionNResult.LatitudeDirection.Value);
+            Assert.AreEqual("North", latitudeDirectionNResult.LatitudeDirection.ToString());
 
-            Assert.AreEqual(latitudeDirectionSResult.LatitudeDirection.Value, Directions.South);
-            Assert.AreEqual(latitudeDirectionSResult.LatitudeDirection.ToString(), "South");
+            Assert.AreEqual(Directions.South, latitudeDirectionSResult.LatitudeDirection.Value);
+            Assert.AreEqual("South", latitudeDirectionSResult.LatitudeDirection.ToString());
         }
         [TestMethod]
         public void InvalidLongitude()
@@ -131,11 +131,11 @@ namespace Autocomp.Nmea.UnitTests
             GLL normalLatitudeResult = (GLL)parseService.Parse(normalLatitudeMessage);
             GLL specialLatitudeResult = (GLL)parseService.Parse(specialLatitudeMessage);
 
-            Assert.AreEqual(normalLatitudeResult.Longitude.Value, 10506.75318910);
-            Assert.AreEqual(normalLatitudeResult.Longitude.ToString(), "105 degrees, 06,75 minutes");
+            Assert.AreEqual(10506.75318910, normalLatitudeResult.Longitude.Value);
+            Assert.AreEqual("105 degrees, 06,75 minutes", normalLatitudeResult.Longitude.ToString());
 
-            Assert.AreEqual(specialLatitudeResult.Longitude.Value, 18100);
-            Assert.AreEqual(specialLatitudeResult.Longitude.ToString(), "Longitude not available");
+            Assert.AreEqual(18100, specialLatitudeResult.Longitude.Value);
+            Assert.AreEqual("Longitude not available", specialLatitudeResult.Longitude.ToString());
         }
         [TestMethod]
         public void InvalidLongitudeDirection()
@@ -160,11 +160,11 @@ namespace Autocomp.Nmea.UnitTests
             GLL longitudeDirectionWResult = (GLL)parseService.Parse(longitudeDirectionWMessage);
             GLL longitudeDirectionEResult = (GLL)parseService.Parse(longitudeDirectionEMessage);
 
-            Assert.AreEqual(longitudeDirectionWResult.LongitudeDirection.Value, Directions.West);
-            Assert.AreEqual(longitudeDirectionWResult.LongitudeDirection.ToString(), "West");
+            Assert.AreEqual(Directions.West, longitudeDirectionWResult.LongitudeDirection.Value);
+            Assert.AreEqual("West", longitudeDirectionWResult.LongitudeDirection.ToString());
 
-            Assert.AreEqual(longitudeDirectionEResult.LongitudeDirection.Value, Directions.East);
-            Assert.AreEqual(longitudeDirectionEResult.LongitudeDirection.ToString(), "East");
+            Assert.AreEqual(Directions.East, longitudeDirectionEResult.LongitudeDirection.Value);
+            Assert.AreEqual("East", longitudeDirectionEResult.LongitudeDirection.ToString());
         }
         [TestMethod]
         public void InvalidUTCOfPosition()
@@ -216,20 +216,20 @@ namespace Autocomp.Nmea.UnitTests
             GLL specialMessage62secondResult = (GLL)parseService.Parse(specialMessage62second);
             GLL specialMessage63secondResult = (GLL)parseService.Parse(specialMessage63second);
 
-            Assert.AreEqual(correctResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38});
-            Assert.AreEqual(correctResult.UTCOfPosition.ToString(), "03:41:38,00");
+            Assert.AreEqual(new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38 }, correctResult.UTCOfPosition.Value);
+            Assert.AreEqual("03:41:38,00", correctResult.UTCOfPosition.ToString());
 
-            Assert.AreEqual(specialMessage60secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 60 });
-            Assert.AreEqual(specialMessage60secondResult.UTCOfPosition.ToString(), "Time stamp is not available");
+            Assert.AreEqual(new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 60 }, specialMessage60secondResult.UTCOfPosition.Value);
+            Assert.AreEqual("Time stamp is not available", specialMessage60secondResult.UTCOfPosition.ToString());
 
-            Assert.AreEqual(specialMessage61secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 61 });
-            Assert.AreEqual(specialMessage61secondResult.UTCOfPosition.ToString(), "Positioning system is in manual input mode");
+            Assert.AreEqual(new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 61 }, specialMessage61secondResult.UTCOfPosition.Value);
+            Assert.AreEqual("Positioning system is in manual input mode", specialMessage61secondResult.UTCOfPosition.ToString());
 
-            Assert.AreEqual(specialMessage62secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 62 });
-            Assert.AreEqual(specialMessage62secondResult.UTCOfPosition.ToString(), "Electronic Position Fixing System operates in estimated (dead reckoning) mode");
+            Assert.AreEqual(new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 62 }, specialMessage62secondResult.UTCOfPosition.Value);
+            Assert.AreEqual("Electronic Position Fixing System operates in estimated (dead reckoning) mode", specialMessage62secondResult.UTCOfPosition.ToString());
 
-            Assert.AreEqual(specialMessage63secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 63 });
-            Assert.AreEqual(specialMessage63secondResult.UTCOfPosition.ToString(), "Positioning system is inoperative");
+            Assert.AreEqual(new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 63 }, specialMessage63secondResult.UTCOfPosition.Value);
+            Assert.AreEqual("Positioning system is inoperative", specialMessage63secondResult.UTCOfPosition.ToString());
         }
         [TestMethod]
         public void InvalidStatus()
@@ -251,11 +251,11 @@ namespace Autocomp.Nmea.UnitTests
             GLL statusAResult = (GLL)parseService.Parse(statusAMessage);
             GLL statusVResult = (GLL)parseService.Parse(statusVMessage);
 
-            Assert.AreEqual(statusAResult.Status.Value, DataStatus.A);
-            Assert.AreEqual(statusAResult.Status.ToString(), "Data valid");
+            Assert.AreEqual(DataStatus.A, statusAResult.Status.Value);
+            Assert.AreEqual("Data valid", statusAResult.Status.ToString());
 
-            Assert.AreEqual(statusVResult.Status.Value, DataStatus.V);
-            Assert.AreEqual(statusVResult.Status.ToString(), "Data not valid");
+            Assert.AreEqual(DataStatus.V, statusVResult.Status.Value);
+            Assert.AreEqual("Data not valid", statusVResult.Status.ToString());
         }
         [TestMethod]
         public void InvalidModeIndicator()
@@ -285,44 +285,44 @@ namespace Autocomp.Nmea.UnitTests
             GLL modeIndicatorSResult = (GLL)parseService.Parse(modeIndicatorSMessage);
             GLL modeIndicatorNResult = (GLL)parseService.Parse(modeIndicatorNMessage);
 
-            Assert.AreEqual(modeIndicatorAResult.ModeIndicator.Value, Indicator.A);
-            Assert.AreEqual(modeIndicatorAResult.ModeIndicator.ToString(), "Autonomous mode");
+            Assert.AreEqual(Indicator.A, modeIndicatorAResult.ModeIndicator.Value);
+            Assert.AreEqual("Autonomous mode", modeIndicatorAResult.ModeIndicator.ToString());
 
-            Assert.AreEqual(modeIndicatorDResult.ModeIndicator.Value, Indicator.D);
-            Assert.AreEqual(modeIndicatorDResult.ModeIndicator.ToString(), "Differential mode");
+            Assert.AreEqual(Indicator.D, modeIndicatorDResult.ModeIndicator.Value);
+            Assert.AreEqual("Differential mode", modeIndicatorDResult.ModeIndicator.ToString());
 
-            Assert.AreEqual(modeIndicatorEResult.ModeIndicator.Value, Indicator.E);
-            Assert.AreEqual(modeIndicatorEResult.ModeIndicator.ToString(), "Estimated (dead reckoning) mode");
+            Assert.AreEqual(Indicator.E, modeIndicatorEResult.ModeIndicator.Value);
+            Assert.AreEqual("Estimated (dead reckoning) mode", modeIndicatorEResult.ModeIndicator.ToString());
 
-            Assert.AreEqual(modeIndicatorMResult.ModeIndicator.Value, Indicator.M);
-            Assert.AreEqual(modeIndicatorMResult.ModeIndicator.ToString(), "Manual input mode");
+            Assert.AreEqual(Indicator.M, modeIndicatorMResult.ModeIndicator.Value);
+            Assert.AreEqual("Manual input mode", modeIndicatorMResult.ModeIndicator.ToString());
 
-            Assert.AreEqual(modeIndicatorSResult.ModeIndicator.Value, Indicator.S);
-            Assert.AreEqual(modeIndicatorSResult.ModeIndicator.ToString(), "Simulator mode");
+            Assert.AreEqual(Indicator.S, modeIndicatorSResult.ModeIndicator.Value);
+            Assert.AreEqual("Simulator mode", modeIndicatorSResult.ModeIndicator.ToString());
 
-            Assert.AreEqual(modeIndicatorNResult.ModeIndicator.Value, Indicator.N);
-            Assert.AreEqual(modeIndicatorNResult.ModeIndicator.ToString(), "Data not valid");
+            Assert.AreEqual(Indicator.N, modeIndicatorNResult.ModeIndicator.Value);
+            Assert.AreEqual("Data not valid", modeIndicatorNResult.ModeIndicator.ToString());
         }
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
-            Assert.AreEqual(result.Latitude.Value, latitude);
-            Assert.AreEqual(result.LatitudeDirection.Value, latitudeDirection);
-            Assert.AreEqual(result.Longitude.Value, longitude);
-            Assert.AreEqual(result.LongitudeDirection.Value, longitudeDirection);
-            Assert.AreEqual(result.UTCOfPosition.Value, utcOfPosition);
-            Assert.AreEqual(result.Status.Value, dataStatus);
-            Assert.AreEqual(result.ModeIndicator.Value, modeIndicator);
+            Assert.AreEqual(latitude, result.Latitude.Value);
+            Assert.AreEqual(latitudeDirection, result.LatitudeDirection.Value);
+            Assert.AreEqual(longitude, result.Longitude.Value);
+            Assert.AreEqual(longitudeDirection, result.LongitudeDirection.Value);
+            Assert.AreEqual(utcOfPosition, result.UTCOfPosition.Value);
+            Assert.AreEqual(dataStatus, result.Status.Value);
+            Assert.AreEqual(modeIndicator, result.ModeIndicator.Value);
         }
 
         private void AreDataNotEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
-            Assert.AreNotEqual(result.Latitude.Value, latitude);
-            Assert.AreNotEqual(result.LatitudeDirection.Value, latitudeDirection);
-            Assert.AreNotEqual(result.Longitude.Value, longitude);
-            Assert.AreNotEqual(result.LongitudeDirection.Value, longitudeDirection);
-            Assert.AreNotEqual(result.UTCOfPosition.Value, utcOfPosition);
-            Assert.AreNotEqual(result.Status.Value, dataStatus);
-            Assert.AreNotEqual(result.ModeIndicator.Value, modeIndicator);
+            Assert.AreNotEqual(latitude, result.Latitude.Value);
+            Assert.AreNotEqual(latitudeDirection, result.LatitudeDirection.Value);
+            Assert.AreNotEqual(longitude, result.Longitude.Value);
+            Assert.AreNotEqual(longitudeDirection, result.LongitudeDirection.Value);
+            Assert.AreNotEqual(utcOfPosition, result.UTCOfPosition.Value);
+            Assert.AreNotEqual(dataStatus, result.Status.Value);
+            Assert.AreNotEqual(modeIndicator, result.ModeIndicator.Value);
         }
     }
 }
