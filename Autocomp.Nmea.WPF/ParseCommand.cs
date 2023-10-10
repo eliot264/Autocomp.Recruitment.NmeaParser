@@ -42,7 +42,7 @@ namespace Autocomp.Nmea.WPF
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Message cannot be parsed due to exception: {e.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Message cannot be parsed due to exception: {e.GetBaseException().Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
