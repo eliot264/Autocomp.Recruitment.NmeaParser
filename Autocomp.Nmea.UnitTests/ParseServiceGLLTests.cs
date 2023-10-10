@@ -22,8 +22,26 @@ namespace Autocomp.Nmea.UnitTests
             string message = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
 
             GLL result = (GLL)parseService.Parse(message);
+            Dictionary<string, string> resultDictionary = result.ToDictionary();
 
             AreDataEquals(result, 3953.88008971, Directions.North, 10506.75318910, Directions.West, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38.00 }, DataStatus.A, Indicator.D);
+
+            Assert.AreEqual(5, resultDictionary.Count);
+
+            Assert.AreEqual("Latitude", resultDictionary.ElementAt(0).Key);
+            Assert.AreEqual("39 degrees, 53,88 minutes North", resultDictionary.ElementAt(0).Value);
+
+            Assert.AreEqual("Longitude", resultDictionary.ElementAt(1).Key);
+            Assert.AreEqual("105 degrees, 06,75 minutes West", resultDictionary.ElementAt(1).Value);
+
+            Assert.AreEqual("Time stamp UTC", resultDictionary.ElementAt(2).Key);
+            Assert.AreEqual("03:41:38,00", resultDictionary.ElementAt(2).Value);
+
+            Assert.AreEqual("Data status", resultDictionary.ElementAt(3).Key);
+            Assert.AreEqual("Data valid", resultDictionary.ElementAt(3).Value);
+
+            Assert.AreEqual("Mode indicator", resultDictionary.ElementAt(4).Key);
+            Assert.AreEqual("Differential mode", resultDictionary.ElementAt(4).Value);
         }
         [TestMethod]
         public void InvalidMessageNumberOfFieldsTest()
