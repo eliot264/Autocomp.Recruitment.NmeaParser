@@ -257,6 +257,52 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(statusVResult.Status.Value, DataStatus.V);
             Assert.AreEqual(statusVResult.Status.ToString(), "Data not valid");
         }
+        [TestMethod]
+        public void InvalidModeIndicator()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string invalidModeIndicatorMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,Z*7A";
+
+            Action invalidModeIndicatorAction = () => { parseService.Parse(invalidModeIndicatorMessage); };
+
+            Assert.ThrowsException<ArgumentException>(invalidModeIndicatorAction);
+        }
+        [TestMethod]
+        public void ValidModeIndicator()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string modeIndicatorAMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,A*7A";
+            string modeIndicatorDMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string modeIndicatorEMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,E*7A";
+            string modeIndicatorMMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,M*7A";
+            string modeIndicatorSMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,S*7A";
+            string modeIndicatorNMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,N*7A";
+
+            GLL modeIndicatorAResult = (GLL)parseService.Parse(modeIndicatorAMessage);
+            GLL modeIndicatorDResult = (GLL)parseService.Parse(modeIndicatorDMessage);
+            GLL modeIndicatorEResult = (GLL)parseService.Parse(modeIndicatorEMessage);
+            GLL modeIndicatorMResult = (GLL)parseService.Parse(modeIndicatorMMessage);
+            GLL modeIndicatorSResult = (GLL)parseService.Parse(modeIndicatorSMessage);
+            GLL modeIndicatorNResult = (GLL)parseService.Parse(modeIndicatorNMessage);
+
+            Assert.AreEqual(modeIndicatorAResult.ModeIndicator.Value, Indicator.A);
+            Assert.AreEqual(modeIndicatorAResult.ModeIndicator.ToString(), "Autonomous mode");
+
+            Assert.AreEqual(modeIndicatorDResult.ModeIndicator.Value, Indicator.D);
+            Assert.AreEqual(modeIndicatorDResult.ModeIndicator.ToString(), "Differential mode");
+
+            Assert.AreEqual(modeIndicatorEResult.ModeIndicator.Value, Indicator.E);
+            Assert.AreEqual(modeIndicatorEResult.ModeIndicator.ToString(), "Estimated (dead reckoning) mode");
+
+            Assert.AreEqual(modeIndicatorMResult.ModeIndicator.Value, Indicator.M);
+            Assert.AreEqual(modeIndicatorMResult.ModeIndicator.ToString(), "Manual input mode");
+
+            Assert.AreEqual(modeIndicatorSResult.ModeIndicator.Value, Indicator.S);
+            Assert.AreEqual(modeIndicatorSResult.ModeIndicator.ToString(), "Simulator mode");
+
+            Assert.AreEqual(modeIndicatorNResult.ModeIndicator.Value, Indicator.N);
+            Assert.AreEqual(modeIndicatorNResult.ModeIndicator.ToString(), "Data not valid");
+        }
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
             Assert.AreEqual(result.Latitude.Value, latitude);
