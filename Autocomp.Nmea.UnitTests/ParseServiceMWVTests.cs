@@ -43,5 +43,18 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual("Data status", resultDictionary.ElementAt(3).Key);
             Assert.AreEqual("Data valid", resultDictionary.ElementAt(3).Value);
         }
+        [TestMethod]
+        public void InvalidMessageNumberOfFieldsTest()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string moreFieldsMessage = "$MWV,320,320,R,15.0,M,A*0B";
+            string lessFieldsMessage = "$MWV,R,15.0,M,A*0B";
+
+            Action moreFieldsParse = () => { parseService.Parse(moreFieldsMessage); };
+            Action lessFieldsParse = () => { parseService.Parse(lessFieldsMessage); };
+
+            Assert.ThrowsException<ArgumentException>(moreFieldsParse);
+            Assert.ThrowsException<ArgumentException>(lessFieldsParse);
+        }
     }
 }
