@@ -31,7 +31,7 @@ namespace Autocomp.Nmea.Common
             get { return minute; }
             set
             {
-                if (value >= 0 || value < 60)
+                if (value >= 0 && value < 60)
                 {
                     minute = value;
                 }

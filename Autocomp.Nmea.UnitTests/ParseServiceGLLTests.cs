@@ -166,6 +166,71 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(longitudeDirectionEResult.LongitudeDirection.Value, Directions.East);
             Assert.AreEqual(longitudeDirectionEResult.LongitudeDirection.ToString(), "East");
         }
+        [TestMethod]
+        public void InvalidUTCOfPosition()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string someLettersMessage = "$GLL,3953.88008971,N,10506.75318910,W,03ABC8.00,A,D*7A";
+            string tooShortMessage = "$GLL,3953.88008971,N,10506.75318910,W,0338.00,A,D*7A";
+            string tooLongMessage = "$GLL,3953.88008971,N,10506.75318910,W,03400138.00,A,D*7A";
+            string hourLessThanRangeMessage = "$GLL,3953.88008971,N,10506.75318910,W,-34138.00,A,D*7A";
+            string hourMoreThanRangeMessage = "$GLL,3953.88008971,N,10506.75318910,W,934138.00,A,D*7A";
+            string minuteLessThanRangeMessage = "$GLL,3953.88008971,N,10506.75318910,W,03-138.00,A,D*7A";
+            string minuteMoreThanRangeMessage = "$GLL,3953.88008971,N,10506.75318910,W,039938.00,A,D*7A";
+            string secondLessThanRangeMessage = "$GLL,3953.88008971,N,10506.75318910,W,0341-8.00,A,D*7A";
+            string secondMoreThanRangeMessage = "$GLL,3953.88008971,N,10506.75318910,W,034198.00,A,D*7A";
+
+            Action someLettersAction = () => { parseService.Parse(someLettersMessage); };
+            Action tooShortAction = () => { parseService.Parse(tooShortMessage); };
+            Action tooLongAction = () => { parseService.Parse(tooLongMessage); };
+            Action hourLessThanRangeAction = () => { parseService.Parse(hourLessThanRangeMessage); };
+            Action hourMoreThanRangeAction = () => { parseService.Parse(hourMoreThanRangeMessage); };
+            Action minuteLessThanRangeAction = () => { parseService.Parse(minuteLessThanRangeMessage); };
+            Action minuteMoreThanRangeAction = () => { parseService.Parse(minuteMoreThanRangeMessage); };
+            Action secondLessThanRangeAction = () => { parseService.Parse(secondLessThanRangeMessage); };
+            Action secondMoreThanRangeAction = () => { parseService.Parse(secondMoreThanRangeMessage); };
+
+            Assert.ThrowsException<ArgumentException>(someLettersAction);
+            Assert.ThrowsException<ArgumentException>(tooShortAction);
+            Assert.ThrowsException<ArgumentException>(tooLongAction);
+            Assert.ThrowsException<ArgumentException>(hourLessThanRangeAction);
+            Assert.ThrowsException<ArgumentException>(hourMoreThanRangeAction);
+            Assert.ThrowsException<ArgumentException>(minuteLessThanRangeAction);
+            Assert.ThrowsException<ArgumentException>(minuteMoreThanRangeAction);
+            Assert.ThrowsException<ArgumentException>(secondLessThanRangeAction);
+            Assert.ThrowsException<ArgumentException>(secondMoreThanRangeAction);
+        }
+        [TestMethod]
+        public void ValidUTCOfPosition()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string correctMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string specialMessage60second = "$GLL,3953.88008971,N,10506.75318910,W,034160.00,A,D*7A";
+            string specialMessage61second = "$GLL,3953.88008971,N,10506.75318910,W,034161.00,A,D*7A";
+            string specialMessage62second = "$GLL,3953.88008971,N,10506.75318910,W,034162.00,A,D*7A";
+            string specialMessage63second = "$GLL,3953.88008971,N,10506.75318910,W,034163.00,A,D*7A";
+
+            GLL correctResult = (GLL)parseService.Parse(correctMessage);
+            GLL specialMessage60secondResult = (GLL)parseService.Parse(specialMessage60second);
+            GLL specialMessage61secondResult = (GLL)parseService.Parse(specialMessage61second);
+            GLL specialMessage62secondResult = (GLL)parseService.Parse(specialMessage62second);
+            GLL specialMessage63secondResult = (GLL)parseService.Parse(specialMessage63second);
+
+            Assert.AreEqual(correctResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 38});
+            Assert.AreEqual(correctResult.UTCOfPosition.ToString(), "03:41:38,00");
+
+            Assert.AreEqual(specialMessage60secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 60 });
+            Assert.AreEqual(specialMessage60secondResult.UTCOfPosition.ToString(), "Time stamp is not available");
+
+            Assert.AreEqual(specialMessage61secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 61 });
+            Assert.AreEqual(specialMessage61secondResult.UTCOfPosition.ToString(), "Positioning system is in manual input mode");
+
+            Assert.AreEqual(specialMessage62secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 62 });
+            Assert.AreEqual(specialMessage62secondResult.UTCOfPosition.ToString(), "Electronic Position Fixing System operates in estimated (dead reckoning) mode");
+
+            Assert.AreEqual(specialMessage63secondResult.UTCOfPosition.Value, new NmeaTimeOnly { Hour = 3, Minute = 41, Second = 63 });
+            Assert.AreEqual(specialMessage63secondResult.UTCOfPosition.ToString(), "Positioning system is inoperative");
+        }
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
             Assert.AreEqual(result.Latitude.Value, latitude);
