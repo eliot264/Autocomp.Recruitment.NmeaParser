@@ -137,6 +137,35 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual(specialLatitudeResult.Longitude.Value, 18100);
             Assert.AreEqual(specialLatitudeResult.Longitude.ToString(), "Longitude not available");
         }
+        [TestMethod]
+        public void InvalidLongitudeDirection()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string logitudeDirectionNMessage = "$GLL,3953.88008971,N,10506.75318910,N,034138.00,A,D*7A";
+            string longitudeDirectionSMessage = "$GLL,3953.88008971,N,10506.75318910,S,034138.00,A,D*7A";
+
+            Action longitudeDirectionNParse = () => { parseService.Parse(logitudeDirectionNMessage); };
+            Action longitudeDirectionSParse = () => { parseService.Parse(longitudeDirectionSMessage); };
+
+            Assert.ThrowsException<ArgumentException>(longitudeDirectionNParse);
+            Assert.ThrowsException<ArgumentException>(longitudeDirectionSParse);
+        }
+        [TestMethod]
+        public void ValidLongitudeDirection()
+        {
+            INmeaMessageParseService parseService = new NmeaMessageParseService();
+            string longitudeDirectionWMessage = "$GLL,3953.88008971,N,10506.75318910,W,034138.00,A,D*7A";
+            string longitudeDirectionEMessage = "$GLL,3953.88008971,S,10506.75318910,E,034138.00,A,D*7A";
+
+            GLL longitudeDirectionWResult = (GLL)parseService.Parse(longitudeDirectionWMessage);
+            GLL longitudeDirectionEResult = (GLL)parseService.Parse(longitudeDirectionEMessage);
+
+            Assert.AreEqual(longitudeDirectionWResult.LongitudeDirection.Value, Directions.West);
+            Assert.AreEqual(longitudeDirectionWResult.LongitudeDirection.ToString(), "West");
+
+            Assert.AreEqual(longitudeDirectionEResult.LongitudeDirection.Value, Directions.East);
+            Assert.AreEqual(longitudeDirectionEResult.LongitudeDirection.ToString(), "East");
+        }
         private void AreDataEquals(GLL result, double latitude, Directions latitudeDirection, double longitude, Directions longitudeDirection, NmeaTimeOnly utcOfPosition, DataStatus dataStatus, Indicator modeIndicator)
         {
             Assert.AreEqual(result.Latitude.Value, latitude);
