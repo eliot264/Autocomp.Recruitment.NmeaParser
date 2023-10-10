@@ -34,13 +34,13 @@ namespace Autocomp.Nmea.UnitTests
             Assert.AreEqual("Angle", resultDictionary.ElementAt(0).Key);
             Assert.AreEqual("320,00 degrees", resultDictionary.ElementAt(0).Value);
 
-            Assert.AreEqual("Reference", resultDictionary.ElementAt(1).Key);
+            Assert.AreEqual("Data reference", resultDictionary.ElementAt(1).Key);
             Assert.AreEqual("Relative", resultDictionary.ElementAt(1).Value);
 
             Assert.AreEqual("Speed", resultDictionary.ElementAt(2).Key);
-            Assert.AreEqual("320,00 m/s", resultDictionary.ElementAt(2).Value);
+            Assert.AreEqual("15,00 m/s", resultDictionary.ElementAt(2).Value);
 
-            Assert.AreEqual("Status", resultDictionary.ElementAt(3).Key);
+            Assert.AreEqual("Data status", resultDictionary.ElementAt(3).Key);
             Assert.AreEqual("Data valid", resultDictionary.ElementAt(3).Value);
         }
     }

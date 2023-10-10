@@ -31,7 +31,7 @@ namespace Autocomp.Nmea.Common.ContentFields
 
         public override string ToString()
         {
-            return Value.ToString();
+            return $"{Value:.00}";
         }
 
         protected override double Parse(string s)
